@@ -11,46 +11,21 @@ public class Lv2_할인행사 {
 	static public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
         
-        Map<String, Integer> map = new HashMap<>();
-        for(int i=0;i<want.length;i++)
-            map.put(want[i],i);
-        
-        int[][] discntNum = new int[discount.length][want.length];
-        for(int i=0;i<discount.length;i++){
+        Map<String,Integer> wantIdx = new HashMap<>();//want의 index저장.
+        for(int i=0;i<want.length;i++) wantIdx.put(want[i],i);  
+    
+        for(int i=0;i+9<discount.length;i++){
+            int[] cntNum = new int[number.length];
             
-            
-            if(i==0 && map.containsKey(discount[i])){
-                discntNum[i][map.get(discount[i])]++; //처음은 전 노드 복사할 필요없이 1만 더해줌.
-                continue;
+            for(int j=0;j<10;j++){
+                //discount배열 원소가 want에 있는 원소이면 해당 값 추가.
+                if(wantIdx.containsKey(discount[i+j])) cntNum[wantIdx.get(discount[i+j])]++;
             }
-            //이전 값 복사
-            discntNum[i] = discntNum[i-1];
-            
-            //want에 포함된 제품이 아니면 넘김.
-            if(!map.containsKey(discount[i])) continue;
-            
-            discntNum[i][map.get(discount[i])]++;
-            
-            if(i==9){
-                if(number.equals(discntNum[i])){
-                    answer=1;
-                    break;
-                }
-            }else if(i>9){
-                boolean b=true;
-                for(int j=0;j<number.length;j++){
-                    if(number[j]!=discntNum[i][j]-discntNum[i-10][j]){
-                        b=false; break;
-                    }
-                }
-                if(b){
-                    answer=i-10+1;
-                }
+            //System.out.println(i+": "+Arrays.toString(cntNum));
+            if(Arrays.equals(cntNum,number)){
+                answer++; // 원하는 제품을 모두 살 수 있는 날이면
             }
-            
         }
-        
-        
         
         return answer;
     }
