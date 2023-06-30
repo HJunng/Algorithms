@@ -1,7 +1,6 @@
 package Silver3;
 
 import java.util.*;
-
 public class BJ11726_2xn타일링 {
 	static int mod=10007;
 	static int[] sum;
