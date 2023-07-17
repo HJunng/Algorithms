@@ -34,8 +34,7 @@ public class BJ2644_촌수계산 {
 	}
 	static int bfs(int start, int end) {
 		
-		int degree=-1;//촌수 -> 만약 촌수 계산할 수 없으면 -1 return.
-		
+		int degree=-1;
 		Queue<int[]> q = new LinkedList<>();
 		q.offer(new int[] {start,0});
 		visited[start]=true;//방문처리
