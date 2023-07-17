@@ -34,17 +34,19 @@ public class BJ2644_촌수계산 {
 	}
 	static int bfs(int start, int end) {
 		
-		int degree=-1;
+		int degree=-1;//촌수 -> 만약 촌수 계산할 수 없으면 -1 return.
+		
 		Queue<int[]> q = new LinkedList<>();
 		q.offer(new int[] {start,0});
-		visited[start]=true;
+		visited[start]=true;//방문처리
 		
 		while(!q.isEmpty()) {
 			int[] now = q.poll();
 			
+			//end에 도착하면 해당 촌수값을 degree에 넣어 종료.
 			if(now[0]==end) { degree=now[1];break;}
 			
-			for(int i:family.get(now[0])) {
+			for(int i:family.get(now[0])) {//now[0]에 연결된 관계들 가져옴.
 				if(visited[i]) continue;
 				
 				visited[i]=true;
