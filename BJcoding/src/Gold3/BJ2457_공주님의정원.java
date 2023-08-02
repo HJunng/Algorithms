@@ -13,6 +13,7 @@ public class BJ2457_공주님의정원 {
 		
 		int start = changeToDay(3,1);
 		int end = changeToDay(11,30);
+		System.out.println(start+" "+end);
 		
 		String[] s;
 		
