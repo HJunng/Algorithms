@@ -1,6 +1,13 @@
+package Hash;
+
 import java.util.*;
-class Solution {
-    public String[] solution(String[] players, String[] callings) {
+
+public class Lv1_달리기경주 {
+
+	public static void main(String[] args) {
+		
+	}
+	public String[] solution(String[] players, String[] callings) {
         String[] answer = new String[players.length];
         
         HashMap<Integer,String> rank_name = new HashMap<>();//등수-이름
