@@ -19,6 +19,7 @@ public class Lv1_달리기경주 {
         for(int i=0;i<callings.length;i++){
             int rank = name_rank.get(callings[i]);//불린 사람이 몇 등인지
             
+            
             //등수 바꿔주기.
             rank_name.put(rank,rank_name.get(rank-1));
             name_rank.put(rank_name.get(rank-1),rank);
