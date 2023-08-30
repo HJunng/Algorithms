@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.io.*;
 import java.util.*;
-public class Day6_문자열나누기 {
+public class Day06_문자열나누기 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

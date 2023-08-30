@@ -3,7 +3,7 @@ package GoormthonChallenge;
 import java.io.*;
 import java.util.*;
 
-public class Dayy10_GameJam {
+public class Day10_GameJam {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

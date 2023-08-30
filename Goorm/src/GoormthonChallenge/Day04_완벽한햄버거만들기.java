@@ -3,7 +3,7 @@ package GoormthonChallenge;
 import java.io.*;
 import java.util.*;
 
-public class Day4_완벽한햄버거만들기 {
+public class Day04_완벽한햄버거만들기 {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub

@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.io.*;
 
-public class Day2_프로젝트매니징 {
+public class Day02_프로젝트매니징 {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub

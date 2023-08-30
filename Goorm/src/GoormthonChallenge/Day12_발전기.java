@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.io.*;
 import java.util.*;
-public class Dayy12_발전기 {
+public class Day12_발전기 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

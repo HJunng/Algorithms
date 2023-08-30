@@ -1,7 +1,7 @@
 package GoormthonChallenge;
 
 import java.io.*;
-public class Day1 {
+public class Day01_운동중독플레이어 {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub

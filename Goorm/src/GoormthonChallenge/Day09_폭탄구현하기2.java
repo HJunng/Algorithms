@@ -1,7 +1,7 @@
 package GoormthonChallenge;
 
 import java.io.*;
-public class Day9_폭탄구현하기2 {
+public class Day09_폭탄구현하기2 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

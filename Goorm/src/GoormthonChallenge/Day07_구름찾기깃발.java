@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.io.*;
 
-public class Day7_구름찾기깃발 {
+public class Day07_구름찾기깃발 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

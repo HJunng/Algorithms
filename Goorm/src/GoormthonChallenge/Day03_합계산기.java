@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.io.*;
 
-public class Day3_합계산기 {
+public class Day03_합계산기 {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub

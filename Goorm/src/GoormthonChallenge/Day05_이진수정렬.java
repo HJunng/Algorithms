@@ -2,7 +2,7 @@ package GoormthonChallenge;
 
 import java.util.*;
 import java.io.*;
-public class Day5_이진수정렬 {
+public class Day05_이진수정렬 {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String[] s = br.readLine().split(" ");
