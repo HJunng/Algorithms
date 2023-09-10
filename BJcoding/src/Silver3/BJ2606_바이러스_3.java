@@ -5,6 +5,7 @@ import java.util.*;
 
 public class BJ2606_바이러스_3 {
 	static boolean[] visited;
+	static int cnt=0;
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 
@@ -27,20 +28,21 @@ public class BJ2606_바이러스_3 {
 		
 		visited = new boolean[computers+1];
 		
-		System.out.println(dfs(1,0,connect));
+		dfs(1,connect);
+		System.out.println(cnt-1);
 	}
 
-	private static int dfs(int now, int cnt, Map<Integer,Set<Integer>> connect) {
+	private static void dfs(int now, Map<Integer,Set<Integer>> connect) {
 		
 		visited[now]=true;
+		cnt++;
 		
 		for(int next : connect.get(now)) {
 			if(!visited[next]) {
-				cnt+=dfs(next,cnt,connect);
+				dfs(next,connect);
 			}
 		}
 		
-		return cnt;
 	}
 
 }
