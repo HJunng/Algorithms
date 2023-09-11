@@ -38,11 +38,8 @@ public class BJ2606_바이러스_3 {
 		cnt++;
 		
 		for(int next : connect.get(now)) {
-			if(!visited[next]) {
-				dfs(next,connect);
-			}
+			if(!visited[next])	dfs(next,connect);
 		}
-		
 	}
 
 }
