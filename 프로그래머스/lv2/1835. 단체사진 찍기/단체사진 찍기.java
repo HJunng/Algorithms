@@ -3,9 +3,9 @@ class Solution {
     static boolean[] visited = new boolean[8];
     static int cnt;
     public int solution(int n, String[] data) {
-        int answer = 0;
+        
         cnt=0;
-       dfs("",data);
+        dfs("",data);
         
         return cnt;
     }
