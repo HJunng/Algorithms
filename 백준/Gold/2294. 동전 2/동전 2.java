@@ -1,46 +1,55 @@
 import java.util.*;
 
 public class Main {
-	static int[]dp;
+	static int[] dp; // i 가치를 만들때의 최소 동전 개수.
+	static int n; // 동전 종류의 개수 
+	static int k; // 만들어야 하는 가치 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		Scanner s = new Scanner(System.in);
+		n = s.nextInt(); // 동전의 종류 개수 
+		k = s.nextInt(); // 만들어야 하는 가치
 		
-		int n = s.nextInt();
-		int k = s.nextInt();
-		
-		int[] worth = new int[n];
 		dp = new int[k+1];
-		
+		Arrays.fill(dp, Integer.MAX_VALUE);
+		int[] coin = new int[n];
 		for(int i=0;i<n;i++) {
-			worth[i]=s.nextInt();
-			if(worth[i]<dp.length) dp[worth[i]]=1; // 동전 1개쓰는게 최소.
+			coin[i] = s.nextInt();
+			if(coin[i]<=k) dp[coin[i]]=1;
 		}
 		
-		Arrays.sort(worth);
 		
-		int answer = findMinCnt(k,worth);
-		if(answer==Integer.MAX_VALUE) answer=-1;
+		System.out.println(findDP(coin));
 		
-		System.out.println(answer);
 	}
-	static int findMinCnt(int k, int[] worth) {
-		if(dp[k]>0) return dp[k];
+	static int findDP(int[] coin) {
 		
-		int minCnt=Integer.MAX_VALUE;
-		
-		for(int i=worth.length-1;i>=0;i--) {
-			if(k-worth[i]<0) continue;
-			
-			int befCnt=findMinCnt(k-worth[i],worth);
-			if(befCnt==Integer.MAX_VALUE) continue;
-			
-			minCnt = Math.min(minCnt, befCnt+1);
+		Queue<Integer> q = new LinkedList<>();
+		for(int i=0;i<n;i++) {
+			if(coin[i]<=k) {
+				q.add(coin[i]);
+				dp[coin[i]]=1;
+			}
 		}
 		
-		dp[k] = minCnt;
-		return dp[k];
+		while(!q.isEmpty()) {
+			int now = q.poll();
+			
+			if(now==k) {
+				return dp[k];
+			}
+			
+			for(int i : coin) {
+				int nextWorth = now+i;
+				if(nextWorth<=k && dp[nextWorth]>dp[now]+1) {
+					q.add(nextWorth);
+					dp[nextWorth]=dp[now]+1;
+				}
+			}
+		}
+		
+		return -1;
 	}
 }
