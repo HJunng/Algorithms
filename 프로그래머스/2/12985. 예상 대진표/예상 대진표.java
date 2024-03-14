@@ -1,7 +1,5 @@
-class Solution
-{
-    public int solution(int n, int a, int b)
-    {
+class Solution{
+    public int solution(int n, int a, int b){
         int answer = 0;
 
         // 2로 나눈 몫으로 해당 라운드의 몇 번째 경기인지 파악하기 때문에
