@@ -4,26 +4,43 @@ class Solution {
     public int solution(int[] people, int limit) {
         int answer = 0;
         
-        LinkedList<Integer> sortedPeople = new LinkedList<>();
-        for(int i=0;i<people.length;i++) sortedPeople.add(people[i]);
+//         LinkedList<Integer> sortedPeople = new LinkedList<>();
+//         for(int i=0;i<people.length;i++) sortedPeople.add(people[i]);
         
-        // 내림차순 정렬
-        Collections.sort(sortedPeople, Collections.reverseOrder());
+//         // 내림차순 정렬
+//         Collections.sort(sortedPeople, Collections.reverseOrder());
         
-        System.out.println(sortedPeople.peekFirst());
+//         // System.out.println(sortedPeople.peekFirst());
         
-        while(!sortedPeople.isEmpty()){
-            int fir = sortedPeople.peekFirst();
-            int lst = sortedPeople.peekLast();
+//         while(!sortedPeople.isEmpty()){
+//             int fir = sortedPeople.peekFirst();
+//             int lst = sortedPeople.peekLast();
             
-            if(fir+lst <= limit){
-                sortedPeople.pollFirst();
-                sortedPeople.pollLast();
-            }else{ //구명보트의 무게 제한은 항상 사람들의 몸무게 중 최댓값보다 크게 주어지므로 사람들을 구출할 수 없는 경우는 없다.
-                sortedPeople.pollFirst();
+//             if(fir+lst <= limit){
+//                 sortedPeople.pollFirst();
+//                 sortedPeople.pollLast();
+//             }else{ //구명보트의 무게 제한(limit)은 항상 사람들의 몸무게 중 최댓값보다 크게 주어지므로 사람들을 구출할 수 없는 경우는 없다.
+//                 sortedPeople.pollFirst();
+//             }
+//             answer++;
+//         }
+        
+        Arrays.sort(people);
+        
+        // 투 포인터
+        int front=0;
+        int back = people.length-1;
+        
+        while(front<=back){
+            if(people[front]+people[back] <= limit){
+                front++;
+                back--;
+            }else{
+                back--;
             }
             answer++;
         }
+        
         
         
         return answer;
