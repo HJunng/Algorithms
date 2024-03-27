@@ -26,10 +26,8 @@ class Solution {
                 }
             }
             
-            if(correct) {
+            if(correct) 
                 answer++;
-                System.out.println(i);
-            }
         }
         
         return answer;
