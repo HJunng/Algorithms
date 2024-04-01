@@ -1,23 +1,23 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class Main {
-	public static void main(String[] args) {
-		
-		Scanner s = new Scanner(System.in);
-		int n = s.nextInt();
-		int arr[] = new int[n+1];
-		int sum[] = new int[n+1];
-		
-		for(int i=1;i<=n;i++) {
-			arr[i] = s.nextInt();
-			
-			if(i==1) {
-				sum[i] = arr[i];
-			}else if(i==2) {
-				sum[i] = arr[i-1]+arr[i];
-			}else {	//i>=3								//0번째가 비어있지 않으면 i-3배열 호출할 때 오류남.
-				sum[i] = Math.max(sum[i-1], Math.max(sum[i-2]+arr[i], sum[i-3]+arr[i-1]+arr[i]));
-			}
-		}
-		System.out.println(sum[n]);	//맨 마지막 잔을 안먹을 수도 있음.
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+
+        int[] grape = new int[n+1];
+        for(int i=1;i<=n;i++) grape[i] = Integer.parseInt(br.readLine());
+
+        int[] dp = new int[n+1];
+        dp[1] = grape[1];
+        if(n>1) dp[2] = grape[1] + grape[2];
+
+        for(int i=3;i<=n;i++){
+            dp[i] = Math.max(dp[i-3]+grape[i-1], dp[i-2]) + grape[i];
+            dp[i] = Math.max(dp[i-1],dp[i]);
+        }
+
+        System.out.println(dp[n]);
+    }
 }
