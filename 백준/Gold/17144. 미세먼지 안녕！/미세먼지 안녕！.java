@@ -1,112 +1,128 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int R, C;
-    static int[][] room;
-    static int[] cleaner = new int[2];
+    static int r,c;
 
-    // 미세먼지 확산
-    static void spreadDust() {
-        int[][] spreadAmount = new int[R][C];
-        int[] dr = {-1, 1, 0, 0};
-        int[] dc = {0, 0, -1, 1};
+    static int[][] board;
+    static Queue<int[]> munji;
+    static int[] cleaner;
 
-        for (int r = 0; r < R; r++) {
-            for (int c = 0; c < C; c++) {
-                if (room[r][c] > 0) {
-                    int spreadCount = 0;
-                    int amount = room[r][c] / 5;
-                    for (int d = 0; d < 4; d++) {
-                        int nr = r + dr[d];
-                        int nc = c + dc[d];
-                        if (nr >= 0 && nr < R && nc >= 0 && nc < C && room[nr][nc] != -1) {
-                            spreadAmount[nr][nc] += amount;
-                            spreadCount++;
+    public static void main(String[] args) throws Exception{
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] s = br.readLine().split(" ");
+
+        r = Integer.parseInt(s[0]);
+        c = Integer.parseInt(s[1]);
+        int t = Integer.parseInt(s[2]); //t초 후의 미세먼지 양
+
+        board = new int[r][c];
+        munji = new LinkedList<>();
+        cleaner = new int[2]; // clear 좌표
+        Arrays.fill(cleaner,-1); //초기화
+
+        for(int i=0;i<r;i++){
+            s = br.readLine().split(" ");
+            for(int j=0;j<c;j++){
+                board[i][j] = Integer.parseInt(s[j]);
+
+                if(board[i][j]>0) munji.add(new int[]{i,j,board[i][j]}); // 먼지 위치 queue에 저장.
+
+                // cleaner 위치 저장
+                if(board[i][j]==-1 && cleaner[0]==-1){
+                    cleaner[0] = i;
+                    cleaner[1] = i+1;
+                }
+            }
+        }
+
+        for(int i=0;i<t;i++){
+            // 1. 미세먼지 확산
+            munjiSpread();
+
+            // 2. 공기청정기 바람
+            operateCleaner();
+        }
+
+        int result = 0;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(board[i][j]>0){
+                    result += board[i][j];
+                }
+            }
+        }
+        System.out.println(result);
+
+    }
+    static void munjiSpread(){
+
+        int[][] spreadPlus = new int[r][c]; // 확산될 먼지 양.
+        int[] dx = {1,-1,0,0};
+        int[] dy = {0,0,1,-1};
+
+        // 미세먼지 확산
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                // 미세먼지가 확산될 수 있는 칸이면
+                if(board[i][j]/5>0){
+                    int spreadSum = 0;
+                    int amount = board[i][j] / 5;
+
+                    for(int d=0;d<4;d++){
+                        int nx = i+dx[d];
+                        int ny = j+dy[d];
+
+                        // 범위를 벗어나지 않고, 공기청정기 자리가 아니면 확산 가능.
+                        if(nx>=0 && nx<r && ny>=0 && ny<c && board[nx][ny]!=-1){
+                            spreadPlus[nx][ny] += amount;
+                            spreadSum += amount;
                         }
                     }
-                    room[r][c] -= amount * spreadCount;
+                    board[i][j] -= spreadSum;
                 }
             }
         }
 
-        // 미세먼지 확산 결과 반영
-        for (int r = 0; r < R; r++) {
-            for (int c = 0; c < C; c++) {
-                room[r][c] += spreadAmount[r][c];
+        // 미세먼지 확산 반영
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                board[i][j] += spreadPlus[i][j];
             }
         }
     }
 
-    // 공기청정기 작동
-    static void operatePurifier() {
-        // 위쪽 공기청정기
-        for (int r = cleaner[0] - 1; r > 0; r--) {
-            room[r][0] = room[r - 1][0];
-        }
-        for (int c = 0; c < C - 1; c++) {
-            room[0][c] = room[0][c + 1];
-        }
-        for (int r = 0; r < cleaner[0]; r++) {
-            room[r][C - 1] = room[r + 1][C - 1];
-        }
-        for (int c = C - 1; c > 1; c--) {
-            room[cleaner[0]][c] = room[cleaner[0]][c - 1];
-        }
-        room[cleaner[0]][1] = 0;
+    static void operateCleaner(){
 
-        // 아래쪽 공기청정기
-        for (int r = cleaner[1] + 1; r < R - 1; r++) {
-            room[r][0] = room[r + 1][0];
+        // 위쪽 공기청정기 -> 반시계방향
+        for (int i = cleaner[0] - 1; i > 0; i--) {
+            board[i][0] = board[i - 1][0];
         }
-        for (int c = 0; c < C - 1; c++) {
-            room[R - 1][c] = room[R - 1][c + 1];
+        for (int j = 0; j < c - 1; j++) {
+            board[0][j] = board[0][j + 1];
         }
-        for (int r = R - 1; r > cleaner[1]; r--) {
-            room[r][C - 1] = room[r - 1][C - 1];
+        for (int i = 0; i < cleaner[0]; i++) {
+            board[i][c - 1] = board[i + 1][c - 1];
         }
-        for (int c = C - 1; c > 1; c--) {
-            room[cleaner[1]][c] = room[cleaner[1]][c - 1];
+        for (int j = c - 1; j > 1; j--) {
+            board[cleaner[0]][j] = board[cleaner[0]][j - 1];
         }
-        room[cleaner[1]][1] = 0;
-    }
+        board[cleaner[0]][1] = 0; // 클리너에서 밀려나온 부분
 
-    // 남아 있는 미세먼지 양 계산
-    static int calculateDustAmount() {
-        int amount = 0;
-        for (int r = 0; r < R; r++) {
-            for (int c = 0; c < C; c++) {
-                if (room[r][c] > 0) {
-                    amount += room[r][c];
-                }
-            }
+        // 아래쪽 공기청정기 -> 시계방향
+        for (int i = cleaner[1] + 1; i < r - 1; i++) {
+            board[i][0] = board[i + 1][0];
         }
-        return amount;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        R = scanner.nextInt();
-        C = scanner.nextInt();
-        int T = scanner.nextInt(); // 시간
-
-        room = new int[R][C];
-
-        for (int r = 0; r < R; r++) {
-            for (int c = 0; c < C; c++) {
-                room[r][c] = scanner.nextInt();
-                if (room[r][c] == -1 && cleaner[0] == 0) {
-                    cleaner[0] = r;
-                }
-            }
+        for (int j = 0; j < c - 1; j++) {
+            board[r - 1][j] = board[r - 1][j + 1];
         }
-        cleaner[1] = cleaner[0] + 1;
-
-        for (int t = 0; t < T; t++) {
-            spreadDust();
-            operatePurifier();
+        for (int i = r - 1; i > cleaner[1]; i--) {
+            board[i][c - 1] = board[i - 1][c - 1];
         }
-
-        int result = calculateDustAmount();
-        System.out.println(result);
+        for (int j = c - 1; j > 1; j--) {
+            board[cleaner[1]][j] = board[cleaner[1]][j - 1];
+        }
+        board[cleaner[1]][1] = 0;
     }
 }
