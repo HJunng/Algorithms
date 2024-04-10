@@ -36,13 +36,15 @@ public class Main {
         for(int i=1;i<=n;i++) parent[i] = i;
 
         int sum = 0;
-        while(!pq.isEmpty()){
+        int cnt = n-1;
+        while(!pq.isEmpty() && cnt>0){
             Connect now = pq.poll();
 
             // 이미 연결되어 있는 컴퓨터이면 패스
             if(parent[now.com1] == parent[now.com2]) continue;
 
             sum += now.cost;
+            cnt--;
             moveParent(parent[now.com1], parent[now.com2]);
         }
         System.out.println(sum);
