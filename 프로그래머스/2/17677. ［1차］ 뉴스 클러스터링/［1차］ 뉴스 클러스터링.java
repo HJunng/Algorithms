@@ -40,7 +40,7 @@ class Solution {
                 union.put(s, Math.max(a.get(s), b.get(s)));
                 intersection.put(s, Math.min(a.get(s),b.get(s)));
             }else{
-                union.put(s, union.getOrDefault(s,0)+b.get(s));
+                union.put(s, b.get(s));
             }
         }
         
