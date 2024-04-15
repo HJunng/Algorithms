@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int aMax = 1000;
+    static int aMax = 200;
     static List<int[]> abList;
     public static void main(String[] args) throws Exception{
 
