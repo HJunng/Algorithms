@@ -19,14 +19,6 @@ public class Main {
         int[] num = new int[n];
         for(int i=0;i<n;i++) num[i] = Integer.parseInt(s[i]);
 
-        if(n==2 && num[0]==num[1]){
-            System.out.println(num[0]);
-            return;
-        }else if(n==2 && num[0]!=num[1]){
-            System.out.println("A");
-            return;
-        }
-
         abList = findAB(num[0],num[1]);
         for(int i=1;i<n-1;i++){
             if(abList.size()==0) break;
