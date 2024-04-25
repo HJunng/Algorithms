@@ -1,37 +1,33 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(String[] operations) {
         int[] answer = new int[2];
         
-        PriorityQueue<Integer> descend = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> ascend = new PriorityQueue<>();
+        PriorityQueue<Integer> pqMin = new PriorityQueue<>();
+        PriorityQueue<Integer> pqMax = new PriorityQueue<>(Collections.reverseOrder());
         
         for(int i=0;i<operations.length;i++){
-            String[] ops = operations[i].split(" ");
+            String[] now = operations[i].split(" ");
             
-            if(ops[0].equals("I")){
-                descend.add(Integer.parseInt(ops[1]));
-                ascend.add(Integer.parseInt(ops[1]));
+            if(now[0].equals("I")){
+                pqMin.add(Integer.parseInt(now[1]));
+                pqMax.add(Integer.parseInt(now[1]));
                 
-            }else{ // "D"
-                if(ascend.isEmpty()) continue;
-                
-                int pop = Integer.parseInt(ops[1]);
-                
-                if(pop>0){ // 최댓값 삭제
-                    int max = descend.poll();
-                    ascend.remove(max);
-                }else{ // 최솟값 삭제
-                    int min = ascend.poll();
-                    descend.remove(min);
-                }
+            } else if(now[1].equals("1") && !pqMax.isEmpty()){
+                int out = pqMax.poll();
+                pqMin.remove(out);
+            } else if(now[1].equals("-1") && !pqMax.isEmpty()) {
+                int out = pqMin.poll();
+                pqMax.remove(out);
             }
         }
-        if(ascend.isEmpty()) return new int[]{0,0};
         
-        answer[0] = descend.poll();
-        answer[1] = ascend.poll();
-        
+        if(pqMax.isEmpty()) return new int[]{0,0};
+        else {
+            answer[0] = pqMax.poll();
+            answer[1] = pqMin.poll();
+        }
         return answer;
     }
 }
