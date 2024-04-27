@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     static int[][][] map;
@@ -48,6 +46,7 @@ public class Main {
                 if(nx<0 || nx>=n || ny<0 || ny>=m) continue;
 
                 // 벽을 부시지 않고 가는 경우.
+                // 벽이 아니고 && (이전에 방문한 적이 없거나 || 이전에 방문했을 때보다 더 적은 횟수로 갈 수 있는 경우)
                 if(map[nx][ny][0]==0 && (map[nx][ny][broken]==0 || map[nx][ny][broken]>map[now[0]][now[1]][broken]+1)){
                     map[nx][ny][broken] = map[now[0]][now[1]][broken]+1;
                     q.add(new int[]{nx,ny,broken});
