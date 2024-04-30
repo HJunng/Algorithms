@@ -1,10 +1,21 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static long[][] minCost;
-    static long MAX = Long.MAX_VALUE;
+    static int MAX = Integer.MAX_VALUE;
+    static int[] toX; // x에 도달하는데 걸리는 최소 cost
+    static int[] fromX; // x에서 원래 자리로 돌아가는데 걸리는 최소 cost
+
+    static List<List<Road>> fromTo = new ArrayList<>();
+    static List<List<Road>> toFrom = new ArrayList<>();
+
+    static class Road {
+        int to,cost;
+        public Road(int to, int cost){
+            this.to = to;
+            this.cost = cost;
+        }
+    }
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] s = br.readLine().split(" ");
@@ -13,40 +24,51 @@ public class Main {
         int m = Integer.parseInt(s[1]);
         int x = Integer.parseInt(s[2])-1;
 
-        minCost = new long[n][n];
-        for(int i=0;i<n;i++) // 처음에는 모든 거리 MAX값으로 초기화
-            Arrays.fill(minCost[i], MAX);
+        for(int i=0;i<n;i++){
+            fromTo.add(new ArrayList<>());
+            toFrom.add(new ArrayList<>());
+        }
 
         for(int i=0;i<m;i++){
             s = br.readLine().split(" ");
 
             int from = Integer.parseInt(s[0])-1;
             int to = Integer.parseInt(s[1])-1;
-            int cost = Integer.parseInt(s[2]);
+            int c = Integer.parseInt(s[2]);
 
-            minCost[from][to] = cost; // a->b 가는 비용 = c
+            fromTo.get(from).add(new Road(to,c));
+            toFrom.get(to).add(new Road(from,c));
         }
 
-        for(int i=0;i<n;i++)
-            minCost[i][i] = 0;
+        toX = new int[n];
+        fromX = new int[n];
+        Arrays.fill(toX, MAX);
+        Arrays.fill(fromX, MAX);
 
-        // 플로이드 - 워셜
-        // 점화식 : Dab = min(Dab, Dac + Dcb)
-        for(int mid=0;mid<n;mid++){ // 중간에 거치는 노드
-            for(int start=0;start<n;start++) { // start->mid
-                for (int end = 0; end < n; end++) {   // mid -> end
-                    if(minCost[start][mid]==MAX || minCost[mid][end]==MAX) continue; // 더하는 값 중하나라도 MAX값이 있으면 더하면 -되므로 넘어가기.
+        dijkstra(toFrom, toX, x); // ~에서 x까지 최소 비용 구하기.
+        dijkstra(fromTo, fromX, x); // x에서 ~까지 최소 비용 구하기
 
-                    minCost[start][end] = Math.min(minCost[start][end], minCost[start][mid] + minCost[mid][end]);
+        int result = 0;
+        for(int i=0;i<n;i++){
+            result = Math.max(result, toX[i]+fromX[i]);
+        }
+        System.out.println(result);
+    }
+    static void dijkstra(List<List<Road>> costs, int[] minCost, int x){
+        PriorityQueue<Road> pq = new PriorityQueue<>((a,b)->a.cost-b.cost);
+        pq.add(new Road(x,0));
+        minCost[x]=0;
+
+        while(!pq.isEmpty()){
+            Road now = pq.poll();
+
+            for(Road next : costs.get(now.to)){
+                // 거쳐가는게 더 작은지 확인.
+                if(minCost[next.to] > minCost[now.to] + next.cost){
+                    minCost[next.to] = minCost[now.to] + next.cost;
+                    pq.add(new Road(next.to, minCost[next.to]));
                 }
             }
         }
-
-        long maxCost = 0;
-        for(int i=0;i<n;i++){
-            maxCost = Math.max(maxCost, minCost[i][x]+minCost[x][i]);
-        }
-
-        System.out.println(maxCost);
     }
 }
