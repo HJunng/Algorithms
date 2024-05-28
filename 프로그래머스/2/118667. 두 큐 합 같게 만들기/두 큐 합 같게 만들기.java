@@ -9,6 +9,7 @@ class Solution {
         Queue<Integer> q1 = new LinkedList<>();
         Queue<Integer> q2 = new LinkedList<>();
         
+        
         for(int i=0;i<size;i++){
             q1.add(queue1[i]);
             sumQ1+=queue1[i];
