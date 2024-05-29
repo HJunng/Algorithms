@@ -18,7 +18,7 @@ public class Main {
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{0,0,c});
 
-        Set<Integer> possibleC = new HashSet<>();
+        Set<Integer> possibleC = new TreeSet<>();
 
         while(!q.isEmpty()){
             int[] n = q.poll();
@@ -46,11 +46,9 @@ public class Main {
                 }
             }
         }
-
-        List<Integer> result = new ArrayList<>(possibleC);
-        Collections.sort(result);
-        for(int i=0;i<result.size();i++){
-            System.out.print(result.get(i)+" ");
+        
+        for(int i : possibleC){
+            System.out.print(i+" ");
         }
     }
 }
