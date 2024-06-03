@@ -11,11 +11,10 @@ public class Main {
         int n = Integer.parseInt(s[0]);
         int m = Integer.parseInt(s[1]);
 
-        String[] lamp = new String[n];
         Map<String,Integer> pattern = new HashMap<>(); // 행 패턴 개수
         for(int i=0;i<n;i++){
-            lamp[i] = br.readLine();
-            pattern.put(lamp[i], pattern.getOrDefault(lamp[i],0)+1);
+            String lamp = br.readLine();
+            pattern.put(lamp, pattern.getOrDefault(lamp,0)+1);
         }
 
         int k = Integer.parseInt(br.readLine());
