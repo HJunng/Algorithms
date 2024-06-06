@@ -10,6 +10,7 @@ class Solution {
 //         // 내림차순 정렬
 //         Collections.sort(sortedPeople, Collections.reverseOrder());
         
+        
 //         // System.out.println(sortedPeople.peekFirst());
         
 //         while(!sortedPeople.isEmpty()){
@@ -40,7 +41,6 @@ class Solution {
             }
             answer++;
         }
-        
         
         
         return answer;
