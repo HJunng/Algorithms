@@ -13,6 +13,7 @@ class Solution {
         s = s.replace("eight","8");
         s = s.replace("nine","9");
         
+        
         answer = Integer.parseInt(s);
         
         return answer;
