@@ -1,39 +1,45 @@
 import java.util.*;
+
 class Solution {
     public int solution(String s) {
         int answer = 0;
         
         for(int i=0;i<s.length();i++){
-            String newStr = s.substring(i)+s.substring(0,i);
-            if(isCorrect(newStr)) answer++;
+            String rotate = s.substring(i)+s.substring(0,i);
+            // System.out.println(rotate);
+            
+            if(isCorrect(rotate)){
+                answer++;
+            }
         }
         
         return answer;
     }
-    public boolean isCorrect(String s){
-        
+    boolean isCorrect(String s){
         Stack<Character> stack = new Stack<>();
+        boolean flag = true;
         
         for(int i=0;i<s.length();i++){
-            char ch = s.charAt(i);
+            char c = s.charAt(i);
             
-            if(ch == '(' || ch == '{' || ch == '[') stack.push(ch);
-            
-            // 일단 스택이 비어있는지부터 확인 -> 비어있는데 닫는 괄호 나오면 올바른 괄호열 아님.
-            else if(stack.isEmpty()) return false;
-            
-            // 괄호가 올바르게 짝지어졌는지 확인
-            else if(stack.peek() == '(' && ch==')') stack.pop();
-            else if(stack.peek() == '{' && ch=='}') stack.pop();
-            else if(stack.peek() == '[' && ch==']') stack.pop();
-            
-            // 나머지의 경우 모두 false.
-            else return false;
-            
+            if(c=='(' || c=='{' || c=='[') stack.push(c);
+            else{
+                if(stack.isEmpty()){
+                    flag = false; break;
+                }
+                
+                if((stack.peek()=='(' && c==')') || 
+                  (stack.peek()=='{' && c=='}') ||
+                  (stack.peek()=='[' && c==']')){
+                    stack.pop();
+                } else{
+                    flag = false; break;
+                }
+            }
         }
         
-        if(!stack.isEmpty()) return false;
+        if(!stack.isEmpty()) flag = false;
         
-        return true;
+        return flag;
     }
 }
