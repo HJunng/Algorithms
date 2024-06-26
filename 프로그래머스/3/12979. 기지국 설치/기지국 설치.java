@@ -1,29 +1,22 @@
 class Solution {
-    public int solution(
-        int n, // 아파트 길이
-        int[] stations, // 기지국이 설치된 아파트 번호가 담긴 배열, 오름차순 정렬되어 있음.
-        int w // 전파의 도달 거리
-    ) {
-        int answer = 0; // 기지국 설치 횟수
-        int stationsIdx = 0;
-        int position = 1;
-        int range = 2 * w + 1;
-        while(position <= n){
+    public int solution(int n, int[] stations, int w) {
+        int answer = 0;
+
+        int statIdx = 0;
+        
+        for(long i=1;i<=n;){
+            System.out.println(i);
             
-            // 기지국이 설치된 범위일 경우            
-            if(stationsIdx < stations.length // 기지국 인덱스 범
-               && stations[stationsIdx] - w <= position && position <= stations[stationsIdx] + w){
-                position = stations[stationsIdx] + w + 1;
-                stationsIdx ++;
-            }   
-            // 기지국이 설치되어 있지 않을 경우
+            if(statIdx<stations.length && i>= stations[statIdx]-w && i<= stations[statIdx]+w){
+                i = stations[statIdx]+w+1;
+                statIdx++;
+            } 
             else{
-                answer++;
-                position += range;
+                answer++; // 기지국 생성
+                i += 2*w+1;
             }
         }
-        
-        
+
         return answer;
     }
 }
