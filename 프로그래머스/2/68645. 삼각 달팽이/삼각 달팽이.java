@@ -1,45 +1,50 @@
 class Solution {
+    public int[] dx = {1,0,-1};
+    public int[] dy = {0,1,-1};
+    
     public int[] solution(int n) {
-        int[] answer = new int[(n*(n+1))/2];
+        int fac = factorial(n);
         
-        if(n==1) return new int[]{1};
+        int[][] arr = new int[n][n];
         
-        int[] dx = {1,0,-1};
-        int[] dy = {0,1,-1};
-        
-        int[][] triangle = new int[n][];
-        for(int i=1;i<=n;i++){
-            triangle[i-1] = new int[i];
-        }
-        
-        int idx = 1;
-        int x=0,y=0,dir=0;
-        while(true){
-            // 방향 돌아서 왔는데 이미 채워져 있으면, 그냥 다 채워진 것.
-            if(triangle[x][y]>0) break;
+        int x,y,dir;
+        x = y = dir = 0;
+        for(int i=1;i<=fac;i++){
             
-            triangle[x][y]=idx++;
+            // 현재 칸에 숫자 채워넣기.
+            arr[x][y] = i;
             
-            int nx = x+dx[dir];
-            int ny = y+dy[dir];
+            // 다음 칸으로 이동
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
             
-            if(nx<0 || ny<0 || nx>=n || ny>=triangle[nx].length
-                || triangle[nx][ny]>0){ // 방향 전환
+            // 방향 전환이 필요한 경우
+            // 1. arr 범위를 벗어날 경우
+            // 2. 다음 칸이 채워져있을 경우
+            if(nx>=n || ny>=n || arr[nx][ny]>0){
                 dir = (dir+1)%3;
-                nx = x+dx[dir];
-                ny = y+dy[dir];
+                nx = x + dx[dir];
+                ny = y + dy[dir];
             }
             
             x = nx; y = ny;
         }
         
-        idx = 0;
+        int[] answer = new int[fac];
+        int cnt=0;
         for(int i=0;i<n;i++){
-            for(int j=0;j<=i;j++){
-                answer[idx++] = triangle[i][j];
+            for(int j=0;j<n;j++){
+                if(arr[i][j]==0) continue;
+                
+                answer[cnt++] = arr[i][j];
             }
         }
         
+        
         return answer;
+    }
+    public int factorial(int n){
+        if(n==1) return 1;
+        else return n+factorial(n-1);
     }
 }
