@@ -9,6 +9,7 @@ class Solution {
         if(n>=2) cnt[2]=2;
         for(int i=3;i<=n;i++){
             cnt[i]=(cnt[i-1]+cnt[i-2])%mod;
+            
         }
         
         return cnt[n];
