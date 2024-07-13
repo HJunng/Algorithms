@@ -5,6 +5,7 @@ class Solution {
         //A가 가진 숫자들을 모두 나눌 수 있는 수
         int a=arrayGCD(arrayA);//arrayA의 최대공약수
         
+        
         if(a!=1 && !canDivide(a,arrayB)) answer=a; // a로 B의 모든 숫자를 나눌 수 없는지 확인
         
         //B가 가진 숫자들을 모두 나눌 수 있는 수
