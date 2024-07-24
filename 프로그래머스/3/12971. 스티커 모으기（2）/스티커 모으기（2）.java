@@ -7,6 +7,7 @@ class Solution {
         int[] dpLast = new int[len];
         
         dpFirst[0] = sticker[0];
+        
         if(len>=2) dpFirst[1] = sticker[0];
         if(len>=2) dpLast[1] = sticker[1];
         
