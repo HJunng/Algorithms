@@ -6,6 +6,7 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->b-a);
         
+        
         for(int i=0;i<priorities.length;i++){
             if(i==location) q.add(new int[]{priorities[i],1});
             else q.add(new int[]{priorities[i],0});
