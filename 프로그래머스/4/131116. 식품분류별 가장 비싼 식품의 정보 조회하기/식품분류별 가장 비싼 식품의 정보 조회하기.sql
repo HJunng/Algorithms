@@ -1,8 +1,8 @@
-# -- 코드를 입력하세요
+-- 코드를 입력하세요
 # SELECT 
 #     CATEGORY,
 #     MAX(PRICE),
-#     PRODUCT_NAME
+#     PRODUCT_NAME   -- 이거가 똑바로 안나올 수 있음.
 # FROM FOOD_PRODUCT
 # WHERE CATEGORY IN ('과자','국','김치','식용유')
 # GROUP BY CATEGORY
