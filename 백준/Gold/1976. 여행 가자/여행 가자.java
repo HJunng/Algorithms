@@ -26,16 +26,15 @@ public class Main {
                 }
             }
         }
-        
+
         s = br.readLine().split(" ");
-        int conn = -1;
+        int firstCityParent = find(Integer.parseInt(s[0])-1);
         boolean poss = true;
 
-        for(int i=0;i<s.length;i++){
+        for(int i=1;i<s.length;i++){
             int city = Integer.parseInt(s[i])-1;
-            if(conn==-1 || conn==find(city)){
-                conn=parent[city];
-            } else {
+            
+            if(firstCityParent != find(city)) {
                 poss = false;
                 break;
             }
