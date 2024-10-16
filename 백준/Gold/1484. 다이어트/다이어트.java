@@ -11,7 +11,7 @@ public class Main {
         int bef = 1;
         int now = 1;
         boolean isExist = false;
-        while(now*now - bef*bef <1_000_000){
+        while(now <= 50_001){
             if(now*now - bef*bef == G){
                 System.out.println(now);
                 isExist = true;
