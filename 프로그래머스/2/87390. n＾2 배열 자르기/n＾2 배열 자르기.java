@@ -7,8 +7,6 @@ class Solution {
             long row = i/n;
             long col = i%n;
             
-            // System.out.println(row+" "+col);
-            
             answer[(int)(i-left)] = (int)Math.max(row,col)+1;
         }
         
