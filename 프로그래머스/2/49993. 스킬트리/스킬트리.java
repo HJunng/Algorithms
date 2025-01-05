@@ -17,7 +17,6 @@ class Solution {
             if(removeOthers.equals(skill.substring(0,removeOthers.length()))) answer++;
         }
         
-        
         return answer;
     }
 }
