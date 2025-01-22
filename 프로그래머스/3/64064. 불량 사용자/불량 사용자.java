@@ -10,9 +10,10 @@ class Solution {
         dfs(0,banned_id.length, new HashSet<>(), user_id, banned_id);
         
         return answer.size();
+        
     }
-    // 깊이를 banned_id의 개수로 하나씩 확인하면서 ban_id와 매핑되는 user_id를 찾아서 set에 추가.
-    // 제재 아이디 목록을 다 구했으면, answer에 제재 목록을 넣음 -> set이기 때문에 알아서 중복 거름.
+    
+    
     void dfs(int depth, int maxDepth, Set<String> set, String[] user_id, String[] banned_id){
         if(depth==maxDepth){
             if(set.size()==maxDepth) answer.add(new HashSet<>(set));
