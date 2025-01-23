@@ -18,7 +18,6 @@ class Solution {
             answer += Math.pow(remain,2);
         }
         
-        
         return answer;
     }
 }
