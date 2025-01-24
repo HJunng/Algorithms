@@ -17,7 +17,7 @@ class Solution {
             map.get(i[1]).add(i[0]);
         }
         
-        // 다익스트라 : destination에서 출발해서 각 지점까지 가장 빠른 cost로 도달할 수 있도록 만들기
+        
         int[] cost = new int[n+1];
         Arrays.fill(cost, MAX);
         
