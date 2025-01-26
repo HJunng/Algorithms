@@ -17,7 +17,6 @@ class Solution {
             map.get(i[1]).add(i[0]);
         }
         
-        
         int[] cost = new int[n+1];
         Arrays.fill(cost, MAX);
         
