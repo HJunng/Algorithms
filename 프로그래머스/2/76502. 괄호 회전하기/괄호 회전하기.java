@@ -12,7 +12,6 @@ class Solution {
                 answer++;
             }
         }
-        
         return answer;
     }
     boolean isCorrect(String s){
@@ -37,7 +36,6 @@ class Solution {
                 }
             }
         }
-        
         if(!stack.isEmpty()) flag = false;
         
         return flag;
