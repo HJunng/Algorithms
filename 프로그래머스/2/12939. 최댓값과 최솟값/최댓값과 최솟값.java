@@ -1,17 +1,16 @@
-import java.util.*;
-import java.util.stream.Collectors; // 필수
-
 class Solution {
     public String solution(String s) {
-        String answer = "";
         
-        List<Integer> nums = Arrays.stream(s.split(" "))
-            .map(Integer::parseInt)
-            .collect(Collectors.toList());
+        String[] splitString = s.split(" ");
+        int min = Integer.parseInt(splitString[0]);
+        int max = Integer.parseInt(splitString[0]);
         
-        Collections.sort(nums);
-        
-        answer = nums.get(0)+" "+nums.get(nums.size()-1);
-        return answer;
+        for(String ss : splitString){
+            int num = Integer.parseInt(ss);
+            
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+        }
+        return min+" "+max;
     }
 }
