@@ -6,7 +6,6 @@ class Solution {
         
         for(int i=0;i<s.length();i++){
             String rotate = s.substring(i)+s.substring(0,i);
-            // System.out.println(rotate);
             
             if(isCorrect(rotate)){
                 answer++;
