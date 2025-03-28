@@ -1,17 +1,21 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[] arr) {
         int answer = 0;
         
-        int lcm = arr[0];
-        // 배열의 모든 요소에 대해 LCM을 계산
-        for(int i = 1; i < arr.length; i++) {
-            lcm = (lcm * arr[i]) / gcd(lcm, arr[i]);
+        Arrays.sort(arr);
+        
+        answer = arr[0];
+        for(int i=1;i<arr.length;i++) {
+            int temp = gcd(answer, arr[i]);
+            answer = answer * (arr[i]/temp);
         }
         
-        return lcm;
+        return answer;
     }
-    int gcd(int a, int b){
-        if(a%b==0) return b;
-        else return gcd(b,a%b);
+    int gcd(int a, int b) {
+        if(b==0) return a;
+        return gcd(b, a%b);
     }
 }
