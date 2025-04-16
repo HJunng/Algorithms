@@ -1,8 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.List;
 
 public class Main {
 
@@ -23,14 +24,9 @@ public class Main {
 		int N = Integer.parseInt(s[0]); // 국가 수
 		int K = Integer.parseInt(s[1]); // 등수를 알고 싶은 국가
 
-		PriorityQueue<Country> pq = new PriorityQueue<>(new Comparator<Country>() {
-			public int compare(Country c1 , Country c2) {
-				if(c1.goldCnt != c2.goldCnt) return c2.goldCnt - c1.goldCnt;
-				else if(c1.silverCnt != c2.silverCnt) return c2.silverCnt - c1.silverCnt;
-				else return c2.bronzeCnt - c1.bronzeCnt;
-			}
-		});
+		List<Country> list = new ArrayList<>();
 
+		Country find = null;
 		for(int i=0;i<N;i++) {
 			s = br.readLine().split(" ");
 
@@ -39,27 +35,21 @@ public class Main {
 			int silverCnt = Integer.parseInt(s[2]);
 			int bronzeCnt = Integer.parseInt(s[3]);
 
-			pq.add(new Country(number, goldCnt, silverCnt, bronzeCnt));
+			Country temp = new Country(number, goldCnt, silverCnt, bronzeCnt);
+
+			if(number == K) find = temp;
+			else list.add(temp);
 		}
 
 		int rank = 0;
-		Country before = null;
-		while(!pq.isEmpty()) {
-			Country c = pq.poll();
-
-			// 등수 구하기
-			if(before == null) rank++;
-			else if(c.goldCnt != before.goldCnt || c.silverCnt != before.silverCnt
-				|| c.bronzeCnt != before.bronzeCnt) {
-				rank++;
-			}
-
-			if(c.countryNumber == K) break;
-
-			before = c;
+		for(Country c : list) {
+			if(c.goldCnt > find.goldCnt) rank++;
+			else if (c.goldCnt==find.goldCnt && c.silverCnt>find.silverCnt) rank++;
+			else if(c.goldCnt==find.goldCnt && c.silverCnt==find.silverCnt
+			&& c.bronzeCnt>find.bronzeCnt) rank++;
 		}
 
-		System.out.println(rank);
+		System.out.println(rank+1);
 
 	}
 }
